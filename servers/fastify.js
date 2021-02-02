@@ -20,8 +20,7 @@ else{
     fastify.register(plugin.plugin)
 }
 
-// fastify.register(require('point-of-view'), opts)
-fastify.register(require('../pov.js'), opts)
+fastify.register(require('point-of-view'), opts)
 
 if (!process.argv[2])
   fastify.get('/', (req, reply) => {
