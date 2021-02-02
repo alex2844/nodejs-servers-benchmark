@@ -58,6 +58,8 @@ const run = async (s, e, t, p) => {
 }
 
 (async () => {
+	if (process.env.OUTPUT)
+		console.log('````');
 	let table = new Table({
 		style: table_style,
 		head: [ 'Nodejs', 'Platform', 'Processor', 'Memory' ]
@@ -127,4 +129,6 @@ const run = async (s, e, t, p) => {
 		}
 		console.log(table.toString());
 	}
+	if (process.env.OUTPUT)
+		console.log('````');
 })();
