@@ -1,8 +1,9 @@
-const { spawn } = require('child_process');
+const { spawn, execSync } = require('child_process');
 const { join } = require('path');
 const { existsSync, readdirSync, readFileSync } = require('fs');
+const { cpus, platform, arch, totalmem } = require('os');
 const autocannon = require('autocannon');
-const format = require('autocannon/lib/format');
+// const format = require('autocannon/lib/format');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table3');
 const Chalk = require('chalk');
@@ -53,6 +54,21 @@ const run = async (s, e, t, p) => {
 }
 
 (async () => {
+	// npm test -- --only-servers | tail +4 | sed $'s/\e\\[[0-9;:]*[a-zA-Z]//g' | sed 's/^│ //g; s/│$//g; s/\s*│/,/g; s/┌//g; s/─//g; s/┬//g; s/┐//g; s/├//g; s/┼//g; s/┤//g; s/└//g; s/┴//g; s/┘//g' > TABLE.md
+	let table = new Table({
+		head: [ 'Nodejs', 'Platform', 'Processor', 'Memory' ].map((entry) => chalk.cyan(entry))
+	});
+	table.push([
+		process.version,
+		platform(),
+		(
+			cpus()[0].model.replace('unknown', '') || execSync(
+				'export LC_ALL=C; lscpu; echo -n "Governor: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null; echo; unset LC_ALL'
+			).toString().split('\n').filter(line => line.startsWith('Model name:')).map(line => line.split(':')[1].trim()).join()
+		).replace(/\s\s/g, '')+' ('+cpus().length+') '+arch(),
+		prettyBytes(totalmem())
+	]);
+	console.log(table.toString());
 	console.log(chalk.green('Calculate the average number of requests per second'));
 	if (!process.argv[2] || (process.argv[2] === '--only-servers')) {
 		let table = new Table({
