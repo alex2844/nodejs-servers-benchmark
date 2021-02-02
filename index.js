@@ -1,15 +1,19 @@
 const { spawn, execSync } = require('child_process');
 const { join } = require('path');
-const { existsSync, readdirSync, readFileSync } = require('fs');
+const { createWriteStream, existsSync, readdirSync, readFileSync } = require('fs');
 const { cpus, platform, arch, totalmem } = require('os');
 const autocannon = require('autocannon');
 // const format = require('autocannon/lib/format');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table3');
-const Chalk = require('chalk');
 const ProgressBar = require('progress');
 
-const chalk = new Chalk.Instance();
+let table_style = { border: [] };
+if (process.env.OUTPUT) {
+	table_style.head = [];
+	process.__defineGetter__('stdout', () => createWriteStream(__dirname+'/'+process.env.OUTPUT, { flags: 'w' }));
+}
+
 const test = async (f='') => {
 	let res = await autocannon({
 		url: 'http://localhost:3000/'+f,
@@ -54,9 +58,9 @@ const run = async (s, e, t, p) => {
 }
 
 (async () => {
-	// npm test -- --only-servers | tail +4 | sed $'s/\e\\[[0-9;:]*[a-zA-Z]//g' | sed 's/^│ //g; s/│$//g; s/\s*│/,/g; s/┌//g; s/─//g; s/┬//g; s/┐//g; s/├//g; s/┼//g; s/┤//g; s/└//g; s/┴//g; s/┘//g' > TABLE.md
 	let table = new Table({
-		head: [ 'Nodejs', 'Platform', 'Processor', 'Memory' ].map((entry) => chalk.cyan(entry))
+		style: table_style,
+		head: [ 'Nodejs', 'Platform', 'Processor', 'Memory' ]
 	});
 	table.push([
 		process.version,
@@ -69,10 +73,11 @@ const run = async (s, e, t, p) => {
 		prettyBytes(totalmem())
 	]);
 	console.log(table.toString());
-	console.log(chalk.green('Calculate the average number of requests per second'));
+	console.log('Calculate the average number of requests per second');
 	if (!process.argv[2] || (process.argv[2] === '--only-servers')) {
 		let table = new Table({
-			head: [ 'Server', 'Requests' ].map((entry) => chalk.cyan(entry))
+			style: table_style,
+			head: [ 'Server', 'Requests' ]
 		});
 		let servers = readdirSync('./servers/');
 		let progress = new ProgressBar('[:p] :bar: :s_ ', {
@@ -113,11 +118,12 @@ const run = async (s, e, t, p) => {
 			return arr;
 		}, []).sort();
 		let table = new Table({
-			head: [ 'Engine' ].concat(head).concat([ 'Total', 'setExt' ]).map((entry) => chalk.cyan(entry))
+			style: table_style,
+			head: [ 'Engine' ].concat(head).concat([ 'Total', 'setExt' ])
 		});
 		for (let k in json) {
 			let arr = head.map(h => json[k][h]);
-			table.push([ chalk.bold(k) ].concat(arr).concat([ arr.reduce((a, b) => ((a || 0) + (b || 0))), ext[k] ]));
+			table.push([ k ].concat(arr).concat([ arr.reduce((a, b) => ((a || 0) + (b || 0))), ext[k] ]));
 		}
 		console.log(table.toString());
 	}
