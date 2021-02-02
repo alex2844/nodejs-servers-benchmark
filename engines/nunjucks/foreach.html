@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    {% for project in projects %}
+      <a href="{{ project.url }}">{{ project.name | safe }}</a>
+      <p>{{ project.description }}</p>
+    {% endfor %}
+    <br/>
+  </body>
+</html>

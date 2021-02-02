@@ -1,0 +1,34 @@
+{
+	"name": "nodejs-servers-benchmark",
+	"scripts": {
+		"test": "node index.js"
+	},
+	"dependencies": {
+		"@lasso/marko-taglib": "^2.0.3",
+		"art-template": "^4.13.2",
+		"autocannon": "^7.0.3",
+		"dot": "^1.1.3",
+		"ejs": "^3.1.5",
+		"eta": "^1.12.1",
+		"express": "^4.17.1",
+		"fastify": "^3.11.0",
+		"fastify-static": "^3.4.0",
+		"handlebars": "^4.7.6",
+		"lasso": "^3.4.0",
+		"lasso-marko": "^3.0.1",
+		"liquidjs": "^9.20.1",
+		"marko": "^5.1.2",
+		"mustache": "^4.1.0",
+		"nunjucks": "^3.2.2",
+		"point-of-view": "^4.11.0",
+		"pug": "^3.0.0",
+		"twig": "^1.15.4"
+	},
+	"repository": "https://github.com/alex2844/nodejs-servers-benchmark.git",
+	"author": {
+		"name": "Alex Smith",
+		"email": "alex.smith2844@gmail.com",
+		"website": "https://alex2844.github.io/",
+		"github": "https://github.com/alex2844"
+	}
+}

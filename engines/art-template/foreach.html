@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <% projects.forEach(function(project) { %>
+      <a href="<%= project.url %>"><%- project.name %></a>
+      <p><%= project.description %></p>
+    <% }); %>
+    <br/>
+  </body>
+</html>

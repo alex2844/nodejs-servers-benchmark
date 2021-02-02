@@ -1,0 +1,6 @@
+doctype html
+html(lang="en")
+  body
+    each project in projects
+      a(href=project.url)!= project.name
+      p= project.description

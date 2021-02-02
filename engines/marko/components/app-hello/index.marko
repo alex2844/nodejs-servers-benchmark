@@ -1,0 +1,20 @@
+class {
+  onCreate() {
+    this.state = {
+      count: 0
+    }
+  }
+  onMount() {}
+  increment() {
+    ++this.state.count;
+  }
+}
+style {
+  .count {
+    color: #09c;
+    font-size: 3em;
+  }
+}
+<p>${input.title}</p>
+<div.count>${state.count}</div>
+<button type="button" on-click('increment')>+1</button>

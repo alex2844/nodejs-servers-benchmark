@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    {% for project in projects %}
+      <a href="{{ project.url | escape }}">{{ project.name }}</a>
+      <p>{{ project.description | escape }}</p>
+    {% endfor %}
+    <br/>
+  </body>
+</html>
