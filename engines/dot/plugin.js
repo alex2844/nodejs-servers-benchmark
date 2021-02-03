@@ -1,1 +1,1 @@
-module.exports.filename = file => file.replace('.dot', '');
+module.exports.filename = file => file.split('.')[0];
