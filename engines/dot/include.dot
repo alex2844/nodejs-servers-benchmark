@@ -1,2 +1,9 @@
-{{##def._title_: {{=it.title}} #}}
-{{#def._include}}
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    {{##def._title_: {{=it.title}} #}}
+    {{#def._include}}
+    <br/>
+  </body>
+</html>
