@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <?js# def.$title:<?js=$this.title?>; ?>
+    <?js- def._include ?>
+	<!--
+		{{# def.snippet:obj:
+			<div>Snippet: <?js= obj.x ?></div>
+		}}
+		<?js- def.snippet:{ x: $this.title }; ?>
+	-->
+    <br/>
+  </body>
+</html>

@@ -14,7 +14,7 @@ else{
   const plugin = (require('fs').existsSync('engines/'+process.argv[2]+'/plugin.js') && require('../'+opts.templates+'/plugin.js'))
   if (plugin.opts)
 	opts = Object.assign(opts, plugin.opts)
-  if (!opts.engine[process.argv[2]])
+  if (!Object.keys(opts.engine))
     opts.engine[process.argv[2]] = require(process.argv[2])
   if (plugin.plugin)
     fastify.register(plugin.plugin)
