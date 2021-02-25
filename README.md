@@ -11,4 +11,4 @@ npm test -- --only-engines ? if.html,if.dot,if.marko,if.pug
 OUTPUT="RESULTS.md" npm test
 ```
 
-#### [Results](RESULTS.md)
+#### [Results](../gh-pages/RESULTS.md)
