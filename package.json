@@ -21,7 +21,7 @@
 		"marko": "^5.1.2",
 		"mustache": "^4.1.0",
 		"nunjucks": "^3.2.2",
-		"point-of-view": "^4.11.0",
+		"point-of-view": "^4.13.0",
 		"pug": "^3.0.0",
 		"twig": "^1.15.4"
 	},
